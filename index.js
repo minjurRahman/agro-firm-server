@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-//const { default: OpenAI } = require('openai');
 const jwt = require("jsonwebtoken")
 const app = express()
 const port = 5000
@@ -47,11 +46,6 @@ function verifyToken(req, res, next) {
     req.user = verify.email;
     next()
 }
-
-/* // Assign API key to variable
-const apiKey = process.env.VITE_OPEN_AI_KEY;
-// Initialise OpenAI API
-const openai = new OpenAI({ apiKey: apiKey }); */
 
 async function run() {
     try {
@@ -151,9 +145,6 @@ async function run() {
 }
 run().catch(console.log);
 
-
-
-
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
@@ -162,7 +153,3 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-
-
-//user: minjurrahaman
-// pass: bWC5ynnNfND1Kni0
