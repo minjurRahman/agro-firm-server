@@ -55,45 +55,45 @@ async function run() {
         //creating database
         const productDB = client.db("productDB");
         const userDB = client.db("userDB");
-        const shoesCollection = productDB.collection("shoesCollection");
         const userCollection = userDB.collection("userCollection");
+        const cowsCollection = productDB.collection("cowsCollection");
 
         // Product routes
-        app.post("/shoes", verifyToken, async (req, res) => {
-            const shoesData = req.body;
-            const result = await shoesCollection.insertOne(shoesData);
+        app.post("/cows", verifyToken, async (req, res) => {
+            const cowsData = req.body;
+            const result = await cowsCollection.insertOne(cowsData);
             res.send(result)
 
         })
         // All data find
-        app.get("/shoes", async (req, res) => {
-            const shoesData = shoesCollection.find();
-            const result = await shoesData.toArray();
+        app.get("/cows", async (req, res) => {
+            const cowsData = cowsCollection.find();
+            const result = await cowsData.toArray();
             res.send(result)
 
         })
 
         // Single Data find
-        app.get("/shoes/:id", async (req, res) => {
+        app.get("/cows/:id", async (req, res) => {
             const id = req.params.id;
-            const shoesData = await shoesCollection.findOne({ _id: new ObjectId(id) });
-            res.send(shoesData)
+            const cowsData = await cowsCollection.findOne({ _id: new ObjectId(id) });
+            res.send(cowsData)
 
         })
         //Update Products
-        app.patch("/shoes/:id", verifyToken, async (req, res) => {
+        app.patch("/cows/:id", verifyToken, async (req, res) => {
             const id = req.params.id;
             const updatedData = req.body;
-            const result = await shoesCollection.updateOne(
+            const result = await cowsCollection.updateOne(
                 { _id: new ObjectId(id) },
                 { $set: updatedData }
             );
             res.send(result)
         })
         // Delete product
-        app.delete("/shoes/:id", verifyToken, async (req, res) => {
+        app.delete("/cows/:id", verifyToken, async (req, res) => {
             const id = req.params.id;
-            const result = await shoesCollection.deleteOne(
+            const result = await cowsCollection.deleteOne(
                 { _id: new ObjectId(id) },
             );
             res.send(result)
@@ -146,7 +146,7 @@ async function run() {
 run().catch(console.log);
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Hello World! Running The Server')
 })
 
 app.listen(port, () => {
